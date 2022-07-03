@@ -1,9 +1,10 @@
 import React from "react";
 import {Link} from "react-router-dom";
 
-import "./header.styles.scss";
+import CartIcon from "../cart-icon/CartIcon";
+import "./Header.styles.scss";
 
-const Header = () => {
+const Header = (): JSX.Element => {
   return (
     <React.Fragment>
       <nav className="nav-menu container">
@@ -18,6 +19,7 @@ const Header = () => {
             <Link to="/shop">Shop</Link>
           </li>
         </ul>
+        <CartIcon />
       </nav>
     </React.Fragment>
   );
