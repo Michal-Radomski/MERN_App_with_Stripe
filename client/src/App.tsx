@@ -3,6 +3,7 @@ import React from "react";
 import Header from "./components/header/Header";
 import Hero from "./components/hero/Hero";
 import MainSection from "./components/main-section/MainSection";
+import FeaturedCollection from "./components/featured-collection/FeaturedCollection";
 import "./App.scss";
 
 //* import TestClass from "./TestClass";
@@ -21,6 +22,7 @@ function App(): JSX.Element {
         <Header />
         <Hero />
         <MainSection />
+        <FeaturedCollection />
       </div>
     </React.Fragment>
   );
