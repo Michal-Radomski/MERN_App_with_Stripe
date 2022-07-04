@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import {BrowserRouter as Router} from "react-router-dom";
 
-import ProductsContextProvider from "./context/products-context";
+import ProductsContextProvider from "./context/ProductsContext";
 
 import App from "./App";
 
