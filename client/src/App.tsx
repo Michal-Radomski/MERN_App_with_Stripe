@@ -4,6 +4,7 @@ import Header from "./components/header/Header";
 import Hero from "./components/hero/Hero";
 import MainSection from "./components/main-section/MainSection";
 import FeaturedCollection from "./components/featured-collection/FeaturedCollection";
+import Footer from "./components/footer/Footer";
 import "./App.scss";
 
 //* import TestClass from "./TestClass";
@@ -18,11 +19,12 @@ function App(): JSX.Element {
           <TestFunction />
         </div>
       </> */}
-      <div className="App">
+      <div className="app">
         <Header />
         <Hero />
         <MainSection />
         <FeaturedCollection />
+        <Footer />
       </div>
     </React.Fragment>
   );
