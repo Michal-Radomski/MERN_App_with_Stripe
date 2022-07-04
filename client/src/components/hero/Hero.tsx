@@ -2,7 +2,7 @@ import React from "react";
 
 import "./Hero.styles.scss";
 
-const Hero = () => {
+const Hero = (): JSX.Element => {
   return (
     <React.Fragment>
       <section className="hero is-large is-info hero-image">

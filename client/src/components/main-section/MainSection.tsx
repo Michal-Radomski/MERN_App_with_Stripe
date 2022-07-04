@@ -5,7 +5,7 @@ import {History} from "history";
 import studioBag from "../../assets/studio-bag.png";
 import "./MainSection.styles.scss";
 
-const MainSection = ({history}: {history: History}) => {
+const MainSection = ({history}: {history: History}): JSX.Element => {
   return (
     <React.Fragment>
       <div className="main-section-container">
