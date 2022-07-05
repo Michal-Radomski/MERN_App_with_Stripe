@@ -8,6 +8,7 @@ import {Switch, Route} from "react-router-dom";
 // import Footer from "./components/footer/Footer";
 
 import HomePage from "./HomePage";
+import NotFound from "./NotFound";
 import "./App.scss";
 
 //* import TestClass from "./TestClass";
@@ -30,6 +31,7 @@ function App(): JSX.Element {
         <Footer /> */}
         <Switch>
           <Route exact={true} path="/" component={HomePage} />
+          <Route path="*" component={NotFound} />
         </Switch>
       </div>
     </React.Fragment>

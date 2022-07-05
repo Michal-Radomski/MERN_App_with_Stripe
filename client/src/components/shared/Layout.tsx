@@ -8,7 +8,7 @@ type Props = {
 };
 
 const Layout: React.FC<Props> = ({children}) => {
-  console.log({children}, typeof children);
+  // console.log({children}, typeof children);
 
   return (
     <React.Fragment>
