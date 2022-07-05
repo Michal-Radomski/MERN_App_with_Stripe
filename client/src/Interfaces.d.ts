@@ -1,7 +1,7 @@
 // Types and Interfaces
 
 interface ShopItem {
-  id: number;
+  id: number | string;
   title: string;
   description: string;
   imageUrl: string;

@@ -6,7 +6,7 @@ import {ProductsContext} from "../../context/ProductsContext";
 import Layout from "../shared/Layout";
 import "./SingleProduct.styles.scss";
 
-const SingleProduct = ({match, history}: {match: {params: {id: string}}; history: History}) => {
+const SingleProduct = ({match, history}: {match: {params: {id: string}}; history: History}): JSX.Element => {
   // console.log("match:", match);
   // console.log("history:", history);
 
@@ -26,7 +26,7 @@ const SingleProduct = ({match, history}: {match: {params: {id: string}}; history
 
   // While we check for product
   if (!product) {
-    return null;
+    return null as any;
   }
   const {imageUrl, title, price, description} = product;
 

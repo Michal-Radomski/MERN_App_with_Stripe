@@ -1,14 +1,22 @@
 import React from "react";
+import {withRouter} from "react-router-dom";
+import {History} from "history";
 
 import "./FeaturedProduct.styles.scss";
 
-const FeaturedProduct = (product: {title: string; imageUrl: string; price: number}): JSX.Element => {
-  const {title, imageUrl, price} = product;
+const FeaturedProduct = (props: {
+  title: string;
+  imageUrl: string;
+  price: number;
+  history: History;
+  id: string;
+}): JSX.Element => {
+  const {title, imageUrl, price, history, id} = props;
 
   return (
     <React.Fragment>
       <div className="featured-product">
-        <div className="featured-image">
+        <div className="featured-image" onClick={() => history.push(`/product/${id}`)}>
           <img src={imageUrl} alt="Product" />
         </div>
         <div className="name-price">
@@ -21,4 +29,4 @@ const FeaturedProduct = (product: {title: string; imageUrl: string; price: numbe
   );
 };
 
-export default FeaturedProduct;
+export default withRouter(FeaturedProduct as React.FC);
