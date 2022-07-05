@@ -11,6 +11,7 @@ import "./App.scss";
 import HomePage from "./HomePage";
 import NotFound from "./NotFound";
 import Shop from "./components/pages/shop/Shop";
+import SingleProduct from "./components/single-product/SingleProduct";
 
 //* import TestClass from "./TestClass";
 //* import TestFunction from "./TestFunction";
@@ -33,6 +34,7 @@ function App(): JSX.Element {
         <Switch>
           <Route exact={true} path="/" component={HomePage} />
           <Route path="/shop" component={Shop} />
+          <Route path="/product/:id" component={SingleProduct} />
           <Route path="*" component={NotFound} />
         </Switch>
       </div>
