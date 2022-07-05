@@ -1,10 +1,13 @@
 import React from "react";
+import {Switch, Route} from "react-router-dom";
 
-import Header from "./components/header/Header";
-import Hero from "./components/hero/Hero";
-import MainSection from "./components/main-section/MainSection";
-import FeaturedCollection from "./components/featured-collection/FeaturedCollection";
-import Footer from "./components/footer/Footer";
+// import Header from "./components/header/Header";
+// import Hero from "./components/hero/Hero";
+// import MainSection from "./components/main-section/MainSection";
+// import FeaturedCollection from "./components/featured-collection/FeaturedCollection";
+// import Footer from "./components/footer/Footer";
+
+import HomePage from "./HomePage";
 import "./App.scss";
 
 //* import TestClass from "./TestClass";
@@ -20,11 +23,14 @@ function App(): JSX.Element {
         </div>
       </> */}
       <div className="app">
-        <Header />
+        {/* <Header />
         <Hero />
         <MainSection />
         <FeaturedCollection />
-        <Footer />
+        <Footer /> */}
+        <Switch>
+          <Route exact={true} path="/" component={HomePage} />
+        </Switch>
       </div>
     </React.Fragment>
   );
