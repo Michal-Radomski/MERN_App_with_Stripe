@@ -6,4 +6,5 @@ interface ShopItem {
   description: string;
   imageUrl: string;
   price: number;
+  quantity?: number;
 }
