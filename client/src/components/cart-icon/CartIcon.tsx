@@ -5,8 +5,9 @@ import {CartContext} from "../../context/CartContext";
 import "./CartIcon.styles.scss";
 
 const CartIcon = (): JSX.Element => {
-  const {itemCount} = React.useContext(CartContext) as any;
+  const {itemCount, cartItems} = React.useContext(CartContext as any);
   console.log({itemCount});
+  console.log({cartItems});
 
   return (
     <React.Fragment>
