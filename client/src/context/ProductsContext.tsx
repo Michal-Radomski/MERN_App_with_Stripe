@@ -5,7 +5,7 @@ import SHOP_DATA from "../shop";
 
 export const ProductsContext = React.createContext({products: SHOP_DATA});
 
-const ProductsContextProvider: React.FC<{children: any}> = ({children}: {children: any}) => {
+const ProductsContextProvider: React.FC<{children: JSX.Element}> = ({children}: {children: JSX.Element}) => {
   // console.log("children:", children, typeof children);
 
   const [products] = React.useState<ShopItem[]>(SHOP_DATA);

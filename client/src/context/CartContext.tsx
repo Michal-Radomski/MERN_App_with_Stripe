@@ -4,9 +4,9 @@ import cartReducer from "./cartReducer";
 
 export const CartContext = React.createContext({contextValues: {cartItems: [], itemCount: 0, total: 0}});
 
-const initialState = {cartItem: [], itemCount: 0, total: 0};
+const initialState = {cartItems: [], itemCount: 0, total: 0};
 
-const CartContextProvider: React.FC<{children: any}> = ({children}: {children: any}) => {
+const CartContextProvider: React.FC<{children: JSX.Element}> = ({children}: {children: JSX.Element}) => {
   console.log({children});
 
   const [state, dispatch] = React.useReducer(cartReducer, initialState as any);
@@ -18,7 +18,7 @@ const CartContextProvider: React.FC<{children: any}> = ({children}: {children: a
     addProduct,
   } as any;
 
-  return <CartContext.Provider value={{contextValues}}>{children}</CartContext.Provider>;
+  return <CartContext.Provider value={contextValues}>{children}</CartContext.Provider>;
 };
 
 export default CartContextProvider;
