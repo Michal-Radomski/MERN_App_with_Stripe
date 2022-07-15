@@ -2,7 +2,9 @@ import React from "react";
 import {withRouter} from "react-router-dom";
 import {History} from "history";
 
+import {isInCart} from "../../helpers";
 import {ProductsContext} from "../../context/ProductsContext";
+import {CartContext} from "../../context/CartContext";
 import Layout from "../shared/Layout";
 import "./SingleProduct.styles.scss";
 
@@ -11,6 +13,7 @@ const SingleProduct = ({match, history}: {match: {params: {id: string}}; history
   // console.log("history:", history);
 
   const {products} = React.useContext(ProductsContext);
+  const {addProduct, cartItems, increase} = React.useContext(CartContext as any);
   const {id} = match.params;
   const [product, setProduct] = React.useState<ShopItem>(null!);
 
@@ -28,6 +31,9 @@ const SingleProduct = ({match, history}: {match: {params: {id: string}}; history
   if (!product) {
     return null as any;
   }
+
+  const itemInCart = isInCart(product as any, cartItems);
+
   const {imageUrl, title, price, description} = product;
 
   return (
@@ -42,9 +48,17 @@ const SingleProduct = ({match, history}: {match: {params: {id: string}}; history
             <p>{price}</p>
           </div>
           <div className="add-to-cart-btns">
-            <button className="button is-white nomad-btn" id="btn-white-outline">
-              Add to Cart
-            </button>
+            {!itemInCart && (
+              <button className="button is-white nomad-btn" id="btn-white-outline" onClick={() => addProduct(product)}>
+                Add to Cart
+              </button>
+            )}
+            {itemInCart && (
+              <button className="button is-white nomad-btn" id="btn-white-outline" onClick={() => increase(product)}>
+                Add More
+              </button>
+            )}
+
             <button className="button is-black nomad-btn" id="btn-black-outline">
               Proceed to Checkout
             </button>

@@ -18,7 +18,8 @@ const FeaturedProduct = (props: {
 
   const product = {title, imageUrl, price, history, id, description};
 
-  const {addProduct, cartItems} = React.useContext(CartContext as any);
+  const {addProduct, cartItems, increase} = React.useContext(CartContext as any);
+  const itemInCart = isInCart(product, cartItems);
 
   return (
     <React.Fragment>
@@ -29,13 +30,13 @@ const FeaturedProduct = (props: {
         <div className="name-price">
           <h3>{title}</h3>
           <p>$ {price}</p>
-          {!isInCart(product, cartItems) && (
+          {!itemInCart && (
             <button onClick={() => addProduct(product)} className="button is-black nomad-btn">
               Add To Cart
             </button>
           )}
-          {isInCart(product, cartItems) && (
-            <button onClick={() => {}} className="button is-white-outline nomad-btn" id="btn-white-outline">
+          {itemInCart && (
+            <button onClick={() => increase(product)} className="button is-white-outline nomad-btn" id="btn-white-outline">
               Add More
             </button>
           )}

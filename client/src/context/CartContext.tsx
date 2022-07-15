@@ -11,11 +11,14 @@ const CartContextProvider: React.FC<{children: JSX.Element}> = ({children}: {chi
 
   const [state, dispatch] = React.useReducer(cartReducer, initialState as any);
 
-  const addProduct = (product: ShopItem) => (dispatch as any)({type: "ADD_ITEM", payload: product});
+  const addProduct = (product: ShopItem) => dispatch({type: "ADD_ITEM", payload: product});
+
+  const increase = (product: ShopItem) => dispatch({type: "INCREASE", payload: product});
 
   const contextValues = {
     ...state,
     addProduct,
+    increase,
   } as any;
 
   return <CartContext.Provider value={contextValues}>{children}</CartContext.Provider>;
