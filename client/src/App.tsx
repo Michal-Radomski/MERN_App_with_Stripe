@@ -12,6 +12,7 @@ import HomePage from "./HomePage";
 import NotFound from "./NotFound";
 import Shop from "./components/pages/shop/Shop";
 import SingleProduct from "./components/single-product/SingleProduct";
+import CartPage from "./components/pages/cart-page/CartPage";
 
 //* import TestClass from "./TestClass";
 //* import TestFunction from "./TestFunction";
@@ -35,6 +36,7 @@ function App(): JSX.Element {
           <Route exact={true} path="/" component={HomePage} />
           <Route path="/shop" component={Shop} />
           <Route path="/product/:id" component={SingleProduct} />
+          <Route path="/cart" component={CartPage} />
           <Route path="*" component={NotFound} />
         </Switch>
       </div>
