@@ -7,7 +7,7 @@ import "./CartPage.styles.scss";
 import Total from "./Total";
 
 const CartPage = (): JSX.Element => {
-  const {cartItems, itemCount, total, increase, decrease, removeProduct} = React.useContext(CartContext as any);
+  const {cartItems, itemCount, total, increase, decrease, removeProduct, clearCart} = React.useContext(CartContext as any);
   const funcs = {increase, decrease, removeProduct};
 
   console.log({cartItems});
@@ -44,7 +44,7 @@ const CartPage = (): JSX.Element => {
                 )}
               </div>
               {/* @ts-ignore */}
-              <Total itemCount={itemCount} total={total} />
+              <Total itemCount={itemCount} total={total} clearCart={clearCart} />
             </div>
           </>
         )}

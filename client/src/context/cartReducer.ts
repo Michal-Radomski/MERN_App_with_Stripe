@@ -3,7 +3,8 @@ type Action =
   | {type: "ADD_ITEM"; payload: ShopItem}
   | {type: "INCREASE"; payload: ShopItem}
   | {type: "DECREASE"; payload: ShopItem}
-  | {type: "REMOVE_ITEM"; payload: ShopItem};
+  | {type: "REMOVE_ITEM"; payload: ShopItem}
+  | {type: "CLEAR_CART"};
 
 // An interface For The State
 interface State {
@@ -56,6 +57,13 @@ const cartReducer = (state: State, action: Action) => {
         ...state,
         cartItems: [...newCartItems],
         ...sumItems(newCartItems),
+      };
+
+    case "CLEAR_CART":
+      return {
+        cartItems: [],
+        itemCount: 0,
+        total: 0,
       };
 
     default:

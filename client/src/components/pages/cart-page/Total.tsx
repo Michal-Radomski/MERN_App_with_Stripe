@@ -2,7 +2,17 @@ import React from "react";
 import {withRouter} from "react-router-dom";
 import {History} from "history";
 
-const Total = ({itemCount, total, history}: {itemCount: number; total: number; history: History}): JSX.Element => {
+const Total = ({
+  itemCount,
+  total,
+  history,
+  clearCart,
+}: {
+  itemCount: number;
+  total: number;
+  history: History;
+  clearCart: () => void;
+}): JSX.Element => {
   return (
     <React.Fragment>
       <div className="total-container">
@@ -14,7 +24,7 @@ const Total = ({itemCount, total, history}: {itemCount: number; total: number; h
           <button className="button is-black" onClick={() => history.push("/checkout")}>
             CheckOut
           </button>
-          <button className="button is-white" onClick={() => {}}>
+          <button className="button is-white" onClick={() => clearCart()}>
             Clear
           </button>
         </div>
