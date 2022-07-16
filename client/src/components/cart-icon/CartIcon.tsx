@@ -8,7 +8,7 @@ import "./CartIcon.styles.scss";
 
 const CartIcon = ({history}: {history: History}): JSX.Element => {
   const {itemCount, cartItems} = React.useContext(CartContext as any);
-  console.log({itemCount});
+  // console.log({itemCount});
   console.log({cartItems});
 
   return (

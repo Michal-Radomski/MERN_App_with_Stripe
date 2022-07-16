@@ -11,8 +11,9 @@ const CartItem = (props: {
   decrease: (arg0: ShopItem) => void;
   id: number;
   description: string;
+  removeProduct: (arg0: ShopItem) => void;
 }): JSX.Element => {
-  const {title, imageUrl, price, quantity, increase, decrease, id, description} = props;
+  const {title, imageUrl, price, quantity, increase, decrease, id, description, removeProduct} = props;
   const product = {title, imageUrl, price, quantity, id, description};
 
   return (
@@ -33,7 +34,7 @@ const CartItem = (props: {
             <PlusCircleIcon width="20px" />
           </button>
           {quantity >= 0 && (
-            <button className="btn-trash">
+            <button className="btn-trash" onClick={() => removeProduct(product)}>
               <TrashIcon width="20px" />
             </button>
           )}

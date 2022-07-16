@@ -14,12 +14,14 @@ const CartContextProvider: React.FC<{children: JSX.Element}> = ({children}: {chi
   const addProduct = (product: ShopItem) => dispatch({type: "ADD_ITEM", payload: product});
   const increase = (product: ShopItem) => dispatch({type: "INCREASE", payload: product});
   const decrease = (product: ShopItem) => dispatch({type: "DECREASE", payload: product});
+  const removeProduct = (product: ShopItem) => dispatch({type: "REMOVE_ITEM", payload: product});
 
   const contextValues = {
     ...state,
     addProduct,
     increase,
     decrease,
+    removeProduct,
   } as any;
 
   return <CartContext.Provider value={contextValues}>{children}</CartContext.Provider>;

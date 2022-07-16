@@ -2,7 +2,8 @@
 type Action =
   | {type: "ADD_ITEM"; payload: ShopItem}
   | {type: "INCREASE"; payload: ShopItem}
-  | {type: "DECREASE"; payload: ShopItem};
+  | {type: "DECREASE"; payload: ShopItem}
+  | {type: "REMOVE_ITEM"; payload: ShopItem};
 
 // An interface For The State
 interface State {
@@ -47,6 +48,14 @@ const cartReducer = (state: State, action: Action) => {
         ...state,
         cartItems: [...state.cartItems],
         ...sumItems(state.cartItems),
+      };
+
+    case "REMOVE_ITEM":
+      const newCartItems = state.cartItems.filter((item) => item.id !== action.payload.id);
+      return {
+        ...state,
+        cartItems: [...newCartItems],
+        ...sumItems(newCartItems),
       };
 
     default:
