@@ -11,7 +11,13 @@ interface State {
   cartItems: ShopItem[];
 }
 
+const storeCartItems = (cartItems: ShopItem[]) => {
+  const cart = cartItems.length > 0 ? cartItems : [];
+  localStorage.setItem("cart", JSON.stringify(cart));
+};
+
 export const sumItems = (cartItems: ShopItem[]) => {
+  storeCartItems(cartItems);
   return {
     itemCount: cartItems.reduce((total: number, product: any) => total + product.quantity, 0),
     total: cartItems.reduce((total: number, product: any) => total + product.price * product.quantity, 0),
@@ -60,6 +66,7 @@ const cartReducer = (state: State, action: Action) => {
       };
 
     case "CLEAR_CART":
+      localStorage.removeItem("cart");
       return {
         cartItems: [],
         itemCount: 0,
