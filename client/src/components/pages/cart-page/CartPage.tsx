@@ -7,7 +7,9 @@ import "./CartPage.styles.scss";
 import Total from "./Total";
 
 const CartPage = (): JSX.Element => {
-  const {cartItems, itemCount, total} = React.useContext(CartContext as any);
+  const {cartItems, itemCount, total, increase, decrease} = React.useContext(CartContext as any);
+  const funcs = {increase, decrease};
+
   console.log({cartItems});
 
   // const alertTest = () => {
@@ -28,9 +30,18 @@ const CartPage = (): JSX.Element => {
           <>
             <div className="cart-page">
               <div className="cart-item-container">
-                {cartItems.map((item: {title: string; imageUrl: string; price: number; quantity: number; id: number}) => (
-                  <CartItem key={item.id} {...item} />
-                ))}
+                {cartItems.map(
+                  (item: {
+                    title: string;
+                    imageUrl: string;
+                    price: number;
+                    quantity: number;
+                    id: number;
+                    description: string;
+                  }) => (
+                    <CartItem key={item.id} {...item} {...funcs} />
+                  )
+                )}
               </div>
               {/* @ts-ignore */}
               <Total itemCount={itemCount} total={total} />

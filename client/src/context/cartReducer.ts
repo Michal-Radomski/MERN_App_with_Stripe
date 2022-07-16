@@ -1,5 +1,8 @@
 // An Interface For The Action
-type Action = {type: "ADD_ITEM"; payload: ShopItem} | {type: "INCREASE"; payload: ShopItem};
+type Action =
+  | {type: "ADD_ITEM"; payload: ShopItem}
+  | {type: "INCREASE"; payload: ShopItem}
+  | {type: "DECREASE"; payload: ShopItem};
 
 // An interface For The State
 interface State {
@@ -28,7 +31,18 @@ const cartReducer = (state: State, action: Action) => {
       const increaseIndex = state.cartItems.findIndex((item) => item.id === action.payload.id);
       // @ts-ignore
       state.cartItems[increaseIndex].quantity++;
+      return {
+        ...state,
+        cartItems: [...state.cartItems],
+        ...sumItems(state.cartItems),
+      };
 
+    case "DECREASE":
+      const decreaseIndex = state.cartItems.findIndex((item) => item.id === action.payload.id);
+      const product = state.cartItems[decreaseIndex];
+      if (product.quantity && product.quantity >= 1) {
+        product.quantity--;
+      }
       return {
         ...state,
         cartItems: [...state.cartItems],

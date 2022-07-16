@@ -8,7 +8,7 @@ const Total = ({itemCount, total, history}: {itemCount: number; total: number; h
       <div className="total-container">
         <div className="total">
           <p>Total Items: {itemCount}</p>
-          <p>{`Total: $${total}`}</p>
+          <p>{`Total: $ ${total}`}</p>
         </div>
         <div className="checkout">
           <button className="button is-black" onClick={() => history.push("/checkout")}>

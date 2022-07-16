@@ -2,8 +2,18 @@ import React from "react";
 
 import {PlusCircleIcon, MinusCircleIcon, TrashIcon} from "../../icons";
 
-const CartItem = (product: {title: string; imageUrl: string; price: number; quantity: number}): JSX.Element => {
-  const {title, imageUrl, price, quantity} = product;
+const CartItem = (props: {
+  title: string;
+  imageUrl: string;
+  price: number;
+  quantity: number;
+  increase: (arg0: ShopItem) => void;
+  decrease: (arg0: ShopItem) => void;
+  id: number;
+  description: string;
+}): JSX.Element => {
+  const {title, imageUrl, price, quantity, increase, decrease, id, description} = props;
+  const product = {title, imageUrl, price, quantity, id, description};
 
   return (
     <React.Fragment>
@@ -19,16 +29,16 @@ const CartItem = (product: {title: string; imageUrl: string; price: number; quan
           <p>{`Quantity: ${quantity}`}</p>
         </div>
         <div className="btns-container">
-          <button className="btn-increase">
+          <button className="btn-increase" onClick={() => increase(product)}>
             <PlusCircleIcon width="20px" />
           </button>
-          {quantity >= 1 && (
+          {quantity >= 0 && (
             <button className="btn-trash">
               <TrashIcon width="20px" />
             </button>
           )}
-          {quantity > 1 && (
-            <button className="btn-decrease">
+          {quantity >= 1 && (
+            <button className="btn-decrease" onClick={() => decrease(product)}>
               <MinusCircleIcon width="20px" />
             </button>
           )}
