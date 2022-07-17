@@ -25,7 +25,7 @@ async function createCheckOutSession(req: Request, res: Response) {
       shipping_address_collection: {allowed_countries: ["PL"]},
     });
     console.log({session});
-    res.status(200).json({sessionID: session.id});
+    res.status(200).json({sessionId: session.id});
   } catch (error) {
     console.log({error});
     res.status(400).json({error: "An Error Occurred, Unable to Create a Session"});
