@@ -13,6 +13,7 @@ import NotFound from "./NotFound";
 import Shop from "./components/pages/shop/Shop";
 import SingleProduct from "./components/single-product/SingleProduct";
 import CartPage from "./components/pages/cart-page/CartPage";
+import Checkout from "./components/checkout/Checkout";
 
 //* import TestClass from "./TestClass";
 //* import TestFunction from "./TestFunction";
@@ -37,6 +38,7 @@ function App(): JSX.Element {
           <Route path="/shop" component={Shop} />
           <Route path="/product/:id" component={SingleProduct} />
           <Route path="/cart" component={CartPage} />
+          <Route path="/checkout" component={Checkout} />
           <Route path="*" component={NotFound} />
         </Switch>
       </div>
