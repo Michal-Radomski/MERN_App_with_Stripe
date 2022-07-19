@@ -12,7 +12,7 @@ async function createCheckOutSession(req: Request, res: Response) {
     return res.status(400).json({error: "Missing Required Session Parameters"});
   }
   let session;
-  console.log({session});
+  // console.log({session});
 
   try {
     session = await stripeAPI.checkout.sessions.create({

@@ -10,7 +10,7 @@ const CartPage = (): JSX.Element => {
   const {cartItems, itemCount, total, increase, decrease, removeProduct, clearCart} = React.useContext(CartContext as any);
   const funcs = {increase, decrease, removeProduct};
 
-  console.log({cartItems});
+  // console.log({cartItems});
 
   // const alertTest = () => {
   //   alert("Alert - test");
