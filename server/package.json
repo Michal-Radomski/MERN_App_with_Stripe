@@ -4,7 +4,9 @@
   "description": "server for e-commerce",
   "main": "index.ts",
   "scripts": {
-    "start": "clear && nodemon index.ts"
+    "server": "clear && nodemon index.ts",
+    "client": "BROWSER=NONE npm start --prefix ../client/",
+    "dev": "clear && concurrently \"npm run server\"  \"npm run client\""
   },
   "license": "ISC",
   "dependencies": {
@@ -17,6 +19,7 @@
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
     "@types/nodemon": "^1.19.1",
+    "concurrently": "^7.3.0",
     "dotenv": "^16.0.1"
   }
 }
