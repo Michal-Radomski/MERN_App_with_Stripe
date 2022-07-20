@@ -14,6 +14,8 @@ import Shop from "./components/pages/shop/Shop";
 import SingleProduct from "./components/single-product/SingleProduct";
 import CartPage from "./components/pages/cart-page/CartPage";
 import Checkout from "./components/checkout/Checkout";
+import Success from "./components/checkout/stripe-checkout/Success";
+import Cancelled from "./components/checkout/stripe-checkout/Cancelled";
 
 //* import TestClass from "./TestClass";
 //* import TestFunction from "./TestFunction";
@@ -39,6 +41,8 @@ function App(): JSX.Element {
           <Route path="/product/:id" component={SingleProduct} />
           <Route path="/cart" component={CartPage} />
           <Route path="/checkout" component={Checkout} />
+          <Route path="/success" component={Success} />
+          <Route path="/cancelled" component={Cancelled} />
           <Route path="*" component={NotFound} />
         </Switch>
       </div>
