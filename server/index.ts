@@ -2,10 +2,21 @@ import express, {Request, Response} from "express";
 const cors = require("cors");
 require("dotenv").config({path: "./.env"});
 const createCheckOutSession = require("./API/checkout");
+const webhook = require("./API/webhook");
+
+declare module "http" {
+  interface IncomingMessage {
+    rawBody: any;
+  }
+}
 
 const app = express();
 
-app.use(express.json());
+app.use(
+  express.json({
+    verify: (request: Request, _response: Response, buffer: Buffer) => (request["rawBody"] = buffer),
+  })
+);
 app.use(cors({origin: true}));
 
 app.get("/", (req: Request, res: Response) => {
@@ -14,6 +25,8 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.post("/create-checkout-session", createCheckOutSession);
+
+app.post("/webhook", webhook);
 
 const port = (process.env.PORT || 5000) as number;
 app.listen(port, () => {
