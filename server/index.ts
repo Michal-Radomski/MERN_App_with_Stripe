@@ -3,7 +3,7 @@ const cors = require("cors");
 require("dotenv").config({path: "./.env"});
 const createCheckOutSession = require("./API/checkout");
 const webhook = require("./API/webhook");
-
+const paymentIntent = require("./API/paymentIntent");
 declare module "http" {
   interface IncomingMessage {
     rawBody: any;
@@ -27,6 +27,8 @@ app.get("/", (req: Request, res: Response) => {
 app.post("/create-checkout-session", createCheckOutSession);
 
 app.post("/webhook", webhook);
+
+app.post("/create-payment-intent", paymentIntent);
 
 const port = (process.env.PORT || 5000) as number;
 app.listen(port, () => {
