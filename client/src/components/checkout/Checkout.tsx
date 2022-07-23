@@ -4,15 +4,20 @@ import {CartContext} from "../../context/CartContext";
 import Layout from "../shared/Layout";
 // import StripeCheckout from "./stripe-checkout/StripeCheckout";
 import ShippingAddress from "./custom-checkout/ShippingAddress";
+import CustomCheckout from "./custom-checkout/CustomCheckout";
 import "./Checkout.styles.scss";
 
 const Checkout = (): JSX.Element => {
-  const {itemCount, total} = React.useContext(CartContext as any);
+  const {itemCount, total, cartItems} = React.useContext(CartContext as any);
 
-  const [shipping, setShipping] = React.useState({});
+  const [shipping, setShipping] = React.useState(null as any);
 
   const addressShown = {
     display: shipping ? "none" : "block",
+  };
+
+  const cardShown = {
+    display: shipping ? "block" : "none",
   };
 
   return (
@@ -24,6 +29,9 @@ const Checkout = (): JSX.Element => {
         {/* <StripeCheckout /> */}
         <div style={addressShown}>
           <ShippingAddress setShipping={setShipping} />
+        </div>
+        <div style={cardShown}>
+          <CustomCheckout {...{shipping, cartItems}} />
         </div>
       </div>
     </Layout>

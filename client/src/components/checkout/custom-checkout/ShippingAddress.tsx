@@ -1,13 +1,15 @@
 import React from "react";
 import {Formik} from "formik";
 
+interface Errors {
+  email?: string;
+  name?: string;
+  address?: string;
+}
+
 const validate = (values: {name: string; email: string; address: string}) => {
   const {name, email, address} = values;
-  const errors: {email: string; address: string; name: string} = {
-    email: "",
-    address: "",
-    name: "",
-  };
+  const errors: Errors = {};
   if (!email) {
     errors.email = "Required";
   }
@@ -17,6 +19,7 @@ const validate = (values: {name: string; email: string; address: string}) => {
   if (!address) {
     errors.address = "Required";
   }
+  // console.log({errors});
   return errors;
 };
 
