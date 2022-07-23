@@ -5,12 +5,12 @@ const stripeAPI = require("../stripe");
 
 const webHookHandlers = {
   "checkout.session.completed": (data: Object) => {
-    console.log("Checkout completed successfully", data);
+    console.log("Checkout Completed Successfully", data);
     //* Here can be other business logic
   },
 
   "payment_intent.succeeded": (data: Object) => {
-    console.log("Payment succeeded", data);
+    console.log("Payment Succeeded", data);
   },
   "payment_intent.payment_failed": (data: Object) => {
     console.log("Payment Failed", data);
