@@ -17,6 +17,7 @@ import Checkout from "./components/checkout/Checkout";
 import Success from "./components/checkout/stripe-checkout/Success";
 import Cancelled from "./components/checkout/stripe-checkout/Cancelled";
 import SignUp from "./components/sign-up/SignUp";
+import SignIn from "./components/sign-in/SignIn";
 
 //* import TestClass from "./TestClass";
 //* import TestFunction from "./TestFunction";
@@ -45,6 +46,7 @@ function App(): JSX.Element {
           <Route path="/success" component={Success} />
           <Route path="/cancelled" component={Cancelled} />
           <Route path="/sign-up" component={SignUp} />
+          <Route path="/sign-in" component={SignIn} />
           <Route path="*" component={NotFound} />
         </Switch>
       </div>
