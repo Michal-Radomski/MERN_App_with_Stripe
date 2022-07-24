@@ -16,6 +16,7 @@ import CartPage from "./components/pages/cart-page/CartPage";
 import Checkout from "./components/checkout/Checkout";
 import Success from "./components/checkout/stripe-checkout/Success";
 import Cancelled from "./components/checkout/stripe-checkout/Cancelled";
+import SignUp from "./components/sign-up/SignUp";
 
 //* import TestClass from "./TestClass";
 //* import TestFunction from "./TestFunction";
@@ -43,6 +44,7 @@ function App(): JSX.Element {
           <Route path="/checkout" component={Checkout} />
           <Route path="/success" component={Success} />
           <Route path="/cancelled" component={Cancelled} />
+          <Route path="/sign-up" component={SignUp} />
           <Route path="*" component={NotFound} />
         </Switch>
       </div>
