@@ -1,14 +1,64 @@
 import React from "react";
 import {Formik} from "formik";
+import {withRouter} from "react-router-dom";
+import {History} from "history";
 
 import Layout from "../shared/Layout";
+import {auth, createUserProfileDocument} from "../../firebase/index";
 import "./SignUp.styles.scss";
 
-const SignUp = (): JSX.Element => {
+interface CustomError {
+  message: string;
+}
+
+interface Errors {
+  email?: string;
+  firstName?: string;
+  password?: string;
+}
+
+const validate = (values: {email: string; firstName: string; password: string}) => {
+  const errors: Errors = {};
+  if (!values.email) {
+    errors.email = "Required";
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+    errors.email = "Invalid email address";
+  }
+  if (!values.firstName) {
+    errors.firstName = "Required";
+  }
+  if (!values.password) {
+    errors.password = "Required";
+  }
+  return errors;
+};
+
+const SignUp = ({history: {push}}: {history: History}): JSX.Element => {
+  const [error, setError] = React.useState<null | CustomError>(null);
   const initialValues = {
     firstName: "",
     email: "",
     password: "",
+  };
+
+  const handleSignUp = async (
+    values: {firstName: string; email: string; password: string},
+    setSubmitting: (arg0: boolean) => void
+  ) => {
+    const {firstName, email, password} = values;
+
+    console.log({setSubmitting});
+
+    try {
+      const {user} = await auth.createUserWithEmailAndPassword(email, password);
+      await createUserProfileDocument(user as any, {displayName: firstName});
+      push("/shop");
+      setSubmitting(false);
+    } catch (error) {
+      console.log("Error", error);
+      setSubmitting(false);
+      setError(error as CustomError);
+    }
   };
 
   return (
@@ -19,9 +69,11 @@ const SignUp = (): JSX.Element => {
           <div className="form-container">
             <Formik
               initialValues={initialValues}
-              onSubmit={(values) => {
-                console.log({values});
-              }}
+              validate={validate}
+              // onSubmit={(values) => {
+              //   console.log({values});
+              // }}
+              onSubmit={handleSignUp as any}
             >
               {({values, errors, handleChange, handleSubmit, isSubmitting}) => {
                 const {firstName, email, password} = errors;
@@ -62,6 +114,7 @@ const SignUp = (): JSX.Element => {
                         Sign Up
                       </button>
                     </div>
+                    <div className="error-message">{error && <p>{error.message}</p>}</div>
                   </form>
                 );
               }}
@@ -73,4 +126,4 @@ const SignUp = (): JSX.Element => {
   );
 };
 
-export default SignUp;
+export default withRouter(SignUp as React.FC);

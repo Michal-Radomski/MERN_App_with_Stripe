@@ -1,6 +1,6 @@
 import React from "react";
 
-import {auth, createUserProfileDocument} from "../firebase";
+import {auth, createUserProfileDocument} from "../firebase/index";
 
 export const UserContext = React.createContext({});
 
