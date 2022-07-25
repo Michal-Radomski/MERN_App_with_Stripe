@@ -7,6 +7,7 @@ import {loadStripe} from "@stripe/stripe-js";
 import ProductsContextProvider from "./context/ProductsContext";
 import CartContextProvider from "./context/CartContext";
 import App from "./App";
+import UserContextProvider from "./context/UserContext";
 
 const stripeKey = process.env.REACT_APP_PUBLISHABLE_STRIPE_KEY as string;
 // console.log({stripeKey});
@@ -21,7 +22,9 @@ root.render(
       <ProductsContextProvider>
         <CartContextProvider>
           <Elements stripe={stripePromise}>
-            <App />
+            <UserContextProvider>
+              <App />
+            </UserContextProvider>
           </Elements>
         </CartContextProvider>
       </ProductsContextProvider>

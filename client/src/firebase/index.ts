@@ -24,7 +24,7 @@ interface CustomError {
 
 const createUserProfileDocument = async (
   userAuth: {
-    multiFactor: any;
+    multiFactor?: any;
     uid?: string;
     displayName?: string;
     email?: string;
@@ -34,6 +34,8 @@ const createUserProfileDocument = async (
   if (!userAuth) {
     return null;
   }
+
+  console.log({userAuth});
 
   const userRef = firestore.doc(`users/${userAuth.multiFactor.user.uid}`); // e.g. users/uniq12345
 
