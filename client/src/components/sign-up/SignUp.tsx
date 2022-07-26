@@ -53,10 +53,10 @@ const SignUp = ({history: {push}}: {history: History}): JSX.Element => {
       const {user} = await auth.createUserWithEmailAndPassword(email, password);
       await createUserProfileDocument(user as any, {displayName: firstName});
       push("/shop");
-      setSubmitting(false);
+      // setSubmitting(false);
     } catch (error) {
       console.log("Error", error);
-      setSubmitting(false);
+      // setSubmitting(false);
       setError(error as CustomError);
     }
   };

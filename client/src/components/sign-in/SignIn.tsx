@@ -1,7 +1,7 @@
 import React from "react";
 import {withRouter} from "react-router-dom";
 import {Formik} from "formik";
-import {auth} from "../../firebase";
+import {auth} from "../../firebase/index";
 import {History} from "history";
 
 import Layout from "../shared/Layout";
@@ -33,16 +33,17 @@ const SignIn = ({history: {push}}: {history: History}): JSX.Element => {
   };
 
   const handleSubmit = async (values: {email: string; password: string}, setSubmitting: (arg0: boolean) => void) => {
+    console.log({setSubmitting});
     console.log("Values", values);
     const {email, password} = values;
     try {
       //SignIn with Firebase
       await auth.signInWithEmailAndPassword(email, password);
-      setSubmitting(false);
+      // setSubmitting(false);
       push("/shop");
     } catch (error) {
       console.log("error", error);
-      setSubmitting(false);
+      // setSubmitting(false);
       setError(error as CustomError);
     }
   };

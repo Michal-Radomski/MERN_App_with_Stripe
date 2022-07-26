@@ -35,7 +35,7 @@ const UserContextProvider: React.FC<{children: JSX.Element}> = ({children}: {chi
 
   const userContext = {user, loading};
   if (loading) {
-    return <div>Loading...</div>;
+    return <h2 style={{textAlign: "center"}}>Loading...</h2>;
   }
   return <UserContext.Provider value={userContext}>{children}</UserContext.Provider>;
 };
