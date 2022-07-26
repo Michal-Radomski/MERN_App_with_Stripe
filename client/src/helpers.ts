@@ -12,6 +12,9 @@ export async function fetchFromAPI(endpoint: string, options: Object) {
   const user = auth.currentUser;
   const token = user && (await user.getIdToken());
 
+  console.log({user});
+  console.log({token});
+
   // console.log({options});
   // console.log({body});
 
