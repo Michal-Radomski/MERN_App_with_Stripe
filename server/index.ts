@@ -1,11 +1,14 @@
 import express, {Request, Response} from "express";
 const cors = require("cors");
 require("dotenv").config({path: "./.env"});
+
 const createCheckOutSession = require("./API/checkout");
 const webhook = require("./API/webhook");
 const paymentIntent = require("./API/paymentIntent");
 const decodeJWT = require("./Auth/decodeJWT");
-// const validateUser = require('./auth/validateUser');
+const validateUser = require("./auth/validateUser");
+const setupIntent = require("./API/setupIntent");
+
 declare module "http" {
   interface IncomingMessage {
     rawBody: any;
@@ -29,6 +32,8 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.post("/create-checkout-session", createCheckOutSession);
+
+app.post("/save-payment-method", validateUser, setupIntent);
 
 app.post("/webhook", webhook);
 
