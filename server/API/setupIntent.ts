@@ -2,7 +2,7 @@ export {};
 import {Request, Response} from "express";
 
 const stripeAPI = require("../stripe");
-const getCustomer = require("../helpers/getCustomer");
+const getCustomer = require("../Helpers/getCustomer");
 
 interface CustomRequest extends Request {
   currentUser: any;

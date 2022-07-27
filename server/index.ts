@@ -6,7 +6,7 @@ const createCheckOutSession = require("./API/checkout");
 const webhook = require("./API/webhook");
 const paymentIntent = require("./API/paymentIntent");
 const decodeJWT = require("./Auth/decodeJWT");
-const validateUser = require("./auth/validateUser");
+const validateUser = require("./Auth/validateUser");
 const setupIntent = require("./API/setupIntent");
 
 declare module "http" {
