@@ -19,3 +19,4 @@ node_modules/
 # My Entries
 .vscode/
 GH_Link_YARN.txt
+service-account.json

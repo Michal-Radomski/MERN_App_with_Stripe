@@ -4,6 +4,8 @@ require("dotenv").config({path: "./.env"});
 const createCheckOutSession = require("./API/checkout");
 const webhook = require("./API/webhook");
 const paymentIntent = require("./API/paymentIntent");
+const decodeJWT = require("./Auth/decodeJWT");
+// const validateUser = require('./auth/validateUser');
 declare module "http" {
   interface IncomingMessage {
     rawBody: any;
@@ -18,6 +20,8 @@ app.use(
   })
 );
 app.use(cors({origin: true}));
+
+app.use(decodeJWT);
 
 app.get("/", (req: Request, res: Response) => {
   console.log("req.ip:", req.ip);
