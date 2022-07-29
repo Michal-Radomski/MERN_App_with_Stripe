@@ -4,11 +4,17 @@ import {CardNumberElement, CardExpiryElement, CardCvcElement, useStripe, useElem
 import {History} from "history";
 
 import {fetchFromAPI} from "../../../helpers";
+import {UserContext} from "../../../context/UserContext";
 
 interface Shipping extends Object {
   name: string;
   email: string;
   address: string;
+}
+
+interface Card {
+  card: {brand: string; last4: number; exp_month: number; exp_year: number};
+  id: string;
 }
 
 const CustomCheckout = ({
@@ -21,16 +27,37 @@ const CustomCheckout = ({
   history: History;
 }): JSX.Element => {
   // console.log({shipping});
+  const {user} = React.useContext(UserContext as any);
+  console.log({UserContext});
+  console.log({user});
 
   const [processing, setProcessing] = React.useState<boolean>(false);
   const [error, setError] = React.useState<null | string>(null);
   const [clientSecret, setClientSecret] = React.useState<string>("");
+  const [cards, setCards] = React.useState<null | Card[]>(null);
+  const [payment, setPaymentCard] = React.useState<string>("");
+
+  console.log({cards});
 
   const stripe = useStripe();
   const elements = useElements();
 
   React.useEffect(() => {
     const items = cartItems.map((item: ShopItem) => ({price: item.price, quantity: item.quantity}));
+
+    if (user) {
+      const savedCards = async () => {
+        try {
+          const cardsList = await fetchFromAPI("/get-payment-methods", {
+            method: "GET",
+          });
+          setCards(cardsList);
+        } catch (error) {
+          console.log({error});
+        }
+      };
+      savedCards();
+    }
 
     if (shipping) {
       const body = {
@@ -52,7 +79,7 @@ const CustomCheckout = ({
       };
       customCheckout();
     }
-  }, [cartItems, shipping]);
+  }, [cartItems, shipping, user]);
 
   const handleCheckout = async () => {
     setProcessing(true);
@@ -92,8 +119,40 @@ const CustomCheckout = ({
     },
   };
 
+  let cardOption;
+
+  if (cards) {
+    cardOption = cards.map((card: Card) => {
+      const {
+        card: {brand, last4, exp_month, exp_year},
+      } = card;
+      return (
+        <option key={card.id} value={card.id}>
+          {`${brand}/ **** **** **** ${last4} ${exp_month}/${exp_year}`}
+        </option>
+      );
+    });
+    cardOption.unshift(
+      <option key="Select a Card" value="">
+        Select A Card
+      </option>
+    );
+  }
+
   return (
     <div>
+      {user && cards && cards.length > 0 && (
+        <div>
+          <h4>Pay with Saved Card</h4>
+          <select
+            value={payment}
+            onChange={(event: React.ChangeEvent<HTMLSelectElement>) => setPaymentCard(event.target.value)}
+          >
+            {cardOption}
+          </select>
+        </div>
+      )}
+
       <h4>Enter Payment Details</h4>
       <div className="stripe-card">
         <CardNumberElement className="card-element" options={cardStyle} onChange={cardHandleChange} />
