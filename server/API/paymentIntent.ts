@@ -29,7 +29,7 @@ async function paymentIntent(req: Request, res: Response) {
       receipt_email: receipt_email,
       shipping: shipping,
     });
-    res.status(200).json({clientSecret: paymentIntent.client_secret});
+    res.status(200).json({clientSecret: paymentIntent.client_secret, id: paymentIntent.id});
   } catch (error) {
     console.log(error);
     res.status(400).json({error: "An error occurred, Unable to create payment intent"});

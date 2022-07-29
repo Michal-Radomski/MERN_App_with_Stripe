@@ -8,6 +8,8 @@ const paymentIntent = require("./API/paymentIntent");
 const decodeJWT = require("./Auth/decodeJWT");
 const validateUser = require("./Auth/validateUser");
 const setupIntent = require("./API/setupIntent");
+const getCards = require("./API/getPaymentMethod");
+const updatePaymentIntent = require("./API/updatePaymentIntent");
 
 declare module "http" {
   interface IncomingMessage {
@@ -38,6 +40,10 @@ app.post("/save-payment-method", validateUser, setupIntent);
 app.post("/webhook", webhook);
 
 app.post("/create-payment-intent", paymentIntent);
+
+app.get("/get-payment-method", validateUser, getCards);
+
+app.put("/update-payment-intent", validateUser, updatePaymentIntent);
 
 const port = (process.env.PORT || 5000) as number;
 app.listen(port, () => {
