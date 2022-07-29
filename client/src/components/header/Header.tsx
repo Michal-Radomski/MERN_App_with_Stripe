@@ -8,7 +8,7 @@ import "./Header.styles.scss";
 
 const Header = (): JSX.Element => {
   const {user} = React.useContext(UserContext as any);
-  console.log({user});
+  // console.log({user});
 
   return (
     <React.Fragment>

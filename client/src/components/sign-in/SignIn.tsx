@@ -33,8 +33,8 @@ const SignIn = ({history: {push}}: {history: History}): JSX.Element => {
   };
 
   const handleSubmit = async (values: {email: string; password: string}, setSubmitting: (arg0: boolean) => void) => {
-    console.log({setSubmitting});
-    console.log("Values", values);
+    // console.log({setSubmitting});
+    // console.log("Values", values);
     const {email, password} = values;
     try {
       //SignIn with Firebase

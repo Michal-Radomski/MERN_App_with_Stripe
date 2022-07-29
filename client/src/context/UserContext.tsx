@@ -5,10 +5,10 @@ import {auth, createUserProfileDocument} from "../firebase/index";
 export const UserContext = React.createContext({});
 
 const UserContextProvider: React.FC<{children: JSX.Element}> = ({children}: {children: JSX.Element}) => {
-  const [user, setUser] = React.useState(null);
+  const [user, setUser] = React.useState<null | Object>(null);
   const [loading, setLoading] = React.useState<boolean>(true);
 
-  console.log({user});
+  // console.log({user});
 
   React.useEffect(() => {
     const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {

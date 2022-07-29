@@ -5,21 +5,21 @@ const stripeAPI = require("../stripe");
 const getCustomer = require("../Helpers/getCustomer");
 
 interface CustomRequest extends Request {
-  currentUser: any;
+  currentUser: {uid: string};
 }
 
 async function setupIntent(req: CustomRequest, res: Response) {
   const {currentUser} = req;
   // Get Stripe Customer
   const customer = await getCustomer(currentUser.uid);
-  console.log({customer});
+  // console.log({customer});
   let setupIntent;
 
   try {
     setupIntent = await stripeAPI.setupIntents.create({
       customer: customer.id,
     });
-    console.log({setupIntent});
+    // console.log({setupIntent});
     res.status(200).json(setupIntent);
   } catch (error) {
     console.log({error});

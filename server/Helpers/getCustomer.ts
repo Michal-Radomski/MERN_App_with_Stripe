@@ -14,7 +14,7 @@ async function createCustomer(userId: string) {
     },
   });
 
-  console.log({customer});
+  // console.log({customer});
 
   await userSnapshot.ref.update({stripeCustomerId: customer.id});
   return customer;
@@ -28,7 +28,7 @@ async function getCustomer(userId: string) {
   }
 
   const customer = await stripeAPI.customers.retrieve(stripeCustomerId);
-  console.log({customer});
+  // console.log({customer});
 
   return customer;
 }

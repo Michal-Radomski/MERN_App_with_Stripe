@@ -5,13 +5,14 @@ const stripeAPI = require("../stripe");
 const getCustomer = require("../Helpers/getCustomer");
 
 interface CustomRequest extends Request {
-  currentUser: any;
+  currentUser: {uid: string};
 }
 
 async function getCards(req: CustomRequest, res: Response) {
   const {currentUser} = req;
   const customer = await getCustomer(currentUser.uid);
-  console.log({customer});
+  // console.log({currentUser});
+  // console.log({customer});
 
   let cards;
 

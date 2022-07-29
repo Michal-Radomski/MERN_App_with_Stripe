@@ -29,8 +29,8 @@ const CustomCheckout = ({
 }): JSX.Element => {
   // console.log({shipping});
   const {user} = React.useContext(UserContext as any);
-  console.log({UserContext});
-  console.log({user});
+  // console.log({UserContext});
+  // console.log({user});
 
   const [processing, setProcessing] = React.useState<boolean>(false);
   const [error, setError] = React.useState<null | string>(null);
@@ -40,7 +40,7 @@ const CustomCheckout = ({
   const [saveCard, setSavedCard] = React.useState<boolean>(false);
   const [paymentIntentId, setPaymentIntentId] = React.useState<null | string>(null);
 
-  console.log({cards});
+  // console.log({cards});
 
   const stripe = useStripe();
   const elements = useElements();

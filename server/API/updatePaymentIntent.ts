@@ -5,7 +5,7 @@ const stripeAPI = require("../stripe");
 const getCustomer = require("../Helpers/getCustomer");
 
 interface CustomRequest extends Request {
-  currentUser: any;
+  currentUser: {uid: string};
 }
 
 async function updatePaymentIntent(req: CustomRequest, res: Response) {
@@ -15,7 +15,7 @@ async function updatePaymentIntent(req: CustomRequest, res: Response) {
   } = req;
 
   const customer = await getCustomer(currentUser.uid);
-  console.log({customer});
+  // console.log({customer});
 
   let paymentIntent;
 

@@ -35,7 +35,7 @@ const createUserProfileDocument = async (
     return null;
   }
 
-  console.log({userAuth});
+  // console.log({userAuth});
 
   const userRef = firestore.doc(`users/${userAuth.multiFactor.user.uid}`); // e.g. users/uniq12345
 
