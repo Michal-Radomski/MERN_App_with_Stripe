@@ -5,6 +5,7 @@ import {History} from "history";
 
 import {fetchFromAPI} from "../../../helpers";
 import {UserContext} from "../../../context/UserContext";
+import {StripeCardNumberElement} from "@stripe/stripe-js";
 
 interface Shipping extends Object {
   name: string;
@@ -36,6 +37,7 @@ const CustomCheckout = ({
   const [clientSecret, setClientSecret] = React.useState<string>("");
   const [cards, setCards] = React.useState<null | Card[]>(null);
   const [payment, setPaymentCard] = React.useState<string>("");
+  const [saveCard, setSavedCard] = React.useState<boolean>(false);
 
   console.log({cards});
 
@@ -84,6 +86,13 @@ const CustomCheckout = ({
   const handleCheckout = async () => {
     setProcessing(true);
 
+    let setupIntent;
+    // Check if User Has Selected to Save Card
+    if (saveCard) {
+      // Create a Setup Intent
+      setupIntent = await fetchFromAPI("/save-payment-method");
+    }
+
     const payload = await stripe?.confirmCardPayment(clientSecret, {
       payment_method: {
         card: elements?.getElement(CardNumberElement) as any,
@@ -92,6 +101,17 @@ const CustomCheckout = ({
     if (payload?.error) {
       setError(`Payment Failed ${payload.error.message}`);
     } else {
+      if (saveCard && setupIntent) {
+        // Send the Customers Card Details to be Saved with Stripe
+        await stripe?.confirmCardSetup(setupIntent.client_secret, {
+          payment_method: {
+            card: elements?.getElement(CardNumberElement) as StripeCardNumberElement,
+          },
+        });
+      } else {
+        push("/success");
+      }
+
       push("/success");
     }
   };
@@ -165,6 +185,17 @@ const CustomCheckout = ({
       <div className="stripe-card">
         <CardCvcElement className="card-element" options={cardStyle} onChange={cardHandleChange} />
       </div>
+
+      {user && (
+        <div className="save-card">
+          <label>Save Card</label>
+          <input
+            type="checkbox"
+            checked={saveCard}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setSavedCard(event.target.checked)}
+          />
+        </div>
+      )}
 
       <div className="submit-btn">
         <button disabled={processing} className="button is-black nomad-btn submit" onClick={() => handleCheckout()}>

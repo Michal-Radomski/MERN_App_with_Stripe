@@ -6,7 +6,7 @@ export const isInCart = (product: {id: string}, cartItems: ShopItem[]) => {
 
 const API: string = "http://localhost:5000"; //* Or URL of server (Heroku)
 
-export async function fetchFromAPI(endpoint: string, options: Object) {
+export async function fetchFromAPI(endpoint: string, options?: Object) {
   const {method, body}: {method: string; body: any} = {method: "POST", body: null, ...options};
 
   const user = auth.currentUser;
