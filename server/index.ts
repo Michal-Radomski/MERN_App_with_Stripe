@@ -41,7 +41,7 @@ app.post("/webhook", webhook);
 
 app.post("/create-payment-intent", paymentIntent);
 
-app.get("/get-payment-method", validateUser, getCards);
+app.get("/get-payment-methods", validateUser, getCards);
 
 app.put("/update-payment-intent", validateUser, updatePaymentIntent);
 

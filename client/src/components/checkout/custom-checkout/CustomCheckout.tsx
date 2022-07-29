@@ -38,6 +38,7 @@ const CustomCheckout = ({
   const [cards, setCards] = React.useState<null | Card[]>(null);
   const [payment, setPaymentCard] = React.useState<string>("");
   const [saveCard, setSavedCard] = React.useState<boolean>(false);
+  const [paymentIntentId, setPaymentIntentId] = React.useState<null | string>(null);
 
   console.log({cards});
 
@@ -50,7 +51,7 @@ const CustomCheckout = ({
     if (user) {
       const savedCards = async () => {
         try {
-          const cardsList = await fetchFromAPI("/get-payment-methods", {
+          const cardsList = await fetchFromAPI("get-payment-methods", {
             method: "GET",
           });
           setCards(cardsList);
@@ -74,10 +75,11 @@ const CustomCheckout = ({
         receipt_email: shipping.email,
       };
       const customCheckout = async () => {
-        const {clientSecret} = await fetchFromAPI("create-payment-intent", {
+        const {clientSecret, id} = await fetchFromAPI("create-payment-intent", {
           body,
         });
         setClientSecret(clientSecret);
+        setPaymentIntentId(id);
       };
       customCheckout();
     }
@@ -90,7 +92,7 @@ const CustomCheckout = ({
     // Check if User Has Selected to Save Card
     if (saveCard) {
       // Create a Setup Intent
-      setupIntent = await fetchFromAPI("/save-payment-method");
+      setupIntent = await fetchFromAPI("save-payment-method");
     }
 
     const payload = await stripe?.confirmCardPayment(clientSecret, {
@@ -112,6 +114,26 @@ const CustomCheckout = ({
         push("/success");
       }
 
+      push("/success");
+    }
+  };
+
+  const savedCardCheckout = async () => {
+    setProcessing(true);
+    // Update the Payment Intent to Include the Customer Parameter
+    const {clientSecret} = await fetchFromAPI("update-payment-intent", {
+      body: {paymentIntentId},
+      method: "PUT",
+    });
+
+    const payload = await stripe?.confirmCardPayment(clientSecret, {
+      payment_method: payment,
+    });
+
+    if (payload?.error) {
+      setError(`Payment Failed: ${payload.error.message}`);
+      setProcessing(false);
+    } else {
       push("/success");
     }
   };
@@ -170,6 +192,14 @@ const CustomCheckout = ({
           >
             {cardOption}
           </select>
+          <button
+            type="submit"
+            disabled={processing || !payment}
+            className="button is-black nomad-btn submit saved-card-btn"
+            onClick={() => savedCardCheckout()}
+          >
+            {processing ? "PROCESSING" : "PAY WITH SAVED CARD"}
+          </button>
         </div>
       )}
 
